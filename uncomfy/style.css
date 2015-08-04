@@ -1,0 +1,69 @@
+body{
+  font-family: Arial, Helvetica, sans-serif;
+  height:100vh;
+  padding:0;
+  margin:0;
+  transition: background-image  2s;
+  
+}
+
+body.bg1{
+  background-image: linear-gradient(135deg, #46beaa 10%, #ffeb78 90%);
+}
+
+body.bg2{
+  background-image: linear-gradient(135deg, #7850b4 10%, #e15a46 90%);
+}
+
+body.bg3{
+  background-image: linear-gradient(135deg, #277777 10%, #46beaa 90%);
+}
+
+body.bg4{
+  background-image: linear-gradient(135deg, #e14a46 10%, #ffeb78 90%);
+}
+
+body.bg5{
+  background-image: linear-gradient(135deg, #005a8c 10%, #41b4d2 90%);
+}
+
+body.bg6{
+  background-image: linear-gradient(135deg, #005a8c 10%, #f08791 90%);
+}
+
+.slick-slider{
+  left:5vw;
+  top:10vh;
+  width:90vw;
+}
+
+.card{
+  background-color: white;
+  border-radius: 5vw;
+  text-align: center;
+  margin:5vw;
+}
+
+.card h2{
+  padding:5vh 2vw 5vh 2vw;
+  margin:0
+}
+
+.card footer{
+  padding: 5vh 10vh;
+  color: #999;
+  font-size: xx-large;
+  font-style:italic;
+}
+
+@media (orientation: landscape) {
+  .card h2{
+    font-size:5vw;
+  }
+}
+
+@media (orientation: portrait) {
+  .card h2{
+    font-size:5vh;
+  }
+}

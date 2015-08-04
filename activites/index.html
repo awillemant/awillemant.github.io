@@ -1,0 +1,221 @@
+<!doctype html>
+<html lang="fr">
+
+<head>
+    <meta charset="utf-8">
+    <title>Activités</title>
+    <style>
+        body{
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        #roue circle#disc{
+            fill:rgb(0,153,180);
+        }
+
+        #roue line{
+            stroke:rgb(255,255,255);
+        }
+
+        #roue text{
+            fill:rgb(255,255,255);
+            
+        }
+
+    </style>
+   
+   
+</head>
+
+<body>
+<h1>Activités</h1>
+
+<div id="playground">
+    <svg height="700" width="700" viewBox="-350 -350 700 700" >
+        <g id="roue" > 
+            <!--circle id="mask" fill="red" fill-opacity="0%" cx="0" cy="0" r="10"></circle-->
+        </g>  
+    </svg>
+    
+</div>
+<script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
+<script src="js/propeller.js"></script>
+<script>
+
+var activites=[
+    {"id":"amis","text":"Voir des amis"},
+    {"id":"balader","text":"Se balader"},
+    {"id":"bricoler","text":"Bricoler"},
+    {"id":"chanter","text":"Chanter"},
+    {"id":"colorier","text":"Colorier"},
+    {"id":"construire","text":"Construire"},
+    {"id":"cuisiner","text":"Cuisiner"},
+    {"id":"danser","text":"Danser"},
+    {"id":"deguiser","text":"Se déguiser"},
+    {"id":"ecouter","text":"Ecouter de la musique"},
+    {"id":"ecrire","text":"Ecrire"},
+    {"id":"experimenter","text":"Expérimenter"},
+    {"id":"jardiner","text":"Jardiner"},
+    {"id":"jouer","text":"Jouer"},
+    {"id":"lire","text":"Lire"},
+    {"id":"maquiller","text":"maquiller"},
+    {"id":"mediter","text":"Méditer"},
+    {"id":"peindre","text":"Peindre"},
+    {"id":"sport","text":"Faire du sport"},
+    {"id":"telephoner","text":"Téléphoner"},
+    {"id":"yoga","text":"Faire du yoga"}
+]
+
+var angleUnite = 360/activites.length*Math.PI/180;
+
+var imagePosition=250;
+var textPosition=250;
+var roueX=0;
+var roueY=0;
+var imageRatio=0.98;
+var discPadding=3;
+
+
+
+var coord1={"x":imagePosition,"y":0};
+var coord2={"x":imagePosition*Math.cos(angleUnite),"y":imagePosition*Math.sin(angleUnite)};
+var imageHeight=imageRatio*Math.sqrt((coord2.x-coord1.x)*(coord2.x-coord1.x) + (coord2.y-coord1.y)*(coord2.y-coord1.y));
+
+var disc = toSvg("circle",{"id":"disc","cx":roueX,"cy":roueY,"r":imagePosition+discPadding+imageHeight});
+//document.getElementById("mask").setAttribute("r",imagePosition+discPadding+imageHeight);
+//document.getElementById("mask").setAttribute("cx",roueX);
+//document.getElementById("mask").setAttribute("cy",roueY);
+
+
+
+
+
+for(let i in activites){
+    var activite=activites[i];
+    var angle = i*angleUnite;
+    var lineElt = toSvg("line",{
+        "x1":roueX+10*Math.cos(angle),
+        "y1":roueY+ 10*Math.sin(angle),
+        "x2":roueX+(imagePosition+imageHeight)*Math.cos(angle),
+        "y2":roueY+(imagePosition+imageHeight)*Math.sin(angle)
+    });   
+    var textElt = toSvg("text",{
+        "alignement-baseline":"middle",
+        "text-anchor":"end",
+        "transform":"translate("+roueX+" "+roueY+") rotate("+((0.5*angleUnite+angle)*180/Math.PI).toFixed(2)+") translate("+textPosition+" 0)",
+    },activite.text);
+    var imgElt = toSvg("image",{
+        "height":imageHeight,"www.w3.org/1999/xlink:href":"img/"+activite.id+".png",
+        "transform":"translate("+roueX+" "+roueY+") rotate("+((0.5*angleUnite+angle)*180/Math.PI).toFixed(2)+") translate("+imagePosition+" -"+(imageHeight/2)+")"
+    });
+    document.getElementById("roue").prepend(lineElt);
+    document.getElementById("roue").prepend(textElt);
+    document.getElementById("roue").prepend(imgElt);
+}
+
+document.getElementById("roue").prepend(disc);
+
+
+function toSvg(tagName,attrs,body){
+    var elt=document.createElementNS("http://www.w3.org/2000/svg",tagName);
+    for(var k in attrs){
+        var splittedAttrName = k.split(":");
+        if(splittedAttrName.length==2){
+            elt.setAttributeNS("http://"+splittedAttrName[0],splittedAttrName[1],attrs[k]);
+        }else{
+            elt.setAttributeNS(null,splittedAttrName[0],attrs[k]);
+        }
+        
+    } 
+    if(body){
+        elt.innerHTML=body;
+    }
+    return elt;
+}
+
+setTimeout(function(){
+    $('#roue').propeller({
+        inertia: 0.98, 
+        speed: 10,
+        onDragStart:function(){
+            console.log("drag");
+        }});
+},2000);
+
+
+/*function makeRotatable(evt) {
+    var selectedElement = false;
+    var svg = evt.target;
+    svg.addEventListener('mousedown', startRotate);
+    svg.addEventListener('mousemove', rotate);
+    svg.addEventListener('mouseup', endRotate);
+    svg.addEventListener('mouseleave', endRotate);
+    svg.addEventListener('touchstart', startRotate);
+    svg.addEventListener('touchmove', rotate);
+    svg.addEventListener('touchend', endRotate);
+    svg.addEventListener('touchcancel', endRotate);
+    svg.addEventListener('touchleave', endRotate);
+    function startRotate(evt) {
+       
+        selectedElement = evt.target.parentNode;
+        
+    }
+    function getMousePosition(evt) {
+        var CTM = svg.getScreenCTM();
+        if (evt.touches) { evt = evt.touches[0]; }
+        return {
+            x: (evt.clientX - CTM.e) / CTM.a,
+            y: (evt.clientY - CTM.f) / CTM.d
+        };
+    }   
+    function rotate(evt) {
+        if (selectedElement) {
+            evt.preventDefault();
+            var dim = evt.target.getBoundingClientRect();
+            var mousePos = getMousePosition(evt);
+            var dx=mousePos.x-roueX;
+            var dy=mousePos.y-roueY;
+            
+            var angleSouris = (Math.atan2(dy, dx) * 180 / Math.PI)+90 ;
+            
+            if(angleSouris<0){
+                angleSouris+=360;
+            }
+            console.log(angleSouris);
+            var angleRoue = selectedElement.transform.baseVal.getItem(1).angle+90;
+           
+            var delta = angleSouris-angleRoue%360;        
+           
+            var da=null;
+            if(delta<-180){
+                da = (360 - angleRoue % 360) + angleSouris;
+            }
+            if(delta>180){
+                da = -1*((360-angleSouris)+(angleRoue%360));
+            }
+            if(da!=null){
+                delta = da;
+            }
+            selectedElement.transform.baseVal.getItem(1).setRotate(angleRoue+delta-90, 0, 0);
+            
+            
+        }
+    }
+
+    
+   
+    
+    function endRotate(evt) {
+        selectedElement = null;
+    }
+
+}*/
+
+
+
+</script>
+
+
+</body>
+
+</html>

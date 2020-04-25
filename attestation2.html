@@ -74,7 +74,7 @@
                 page1.drawText(text, { x, y, size, font })
             }
             var parts = window.location.hash.substring("1").split("_");
-            drawText(parts[1] + " " + parts[0].toUpperCase(), 123, 686);
+            drawText(decodeURIComponent(parts[1]) + " " + decodeURIComponent(parts[0]).toUpperCase(), 123, 686);
             drawText(parts[2], 123, 661);
             drawText(decodeURIComponent(parts[3]), 92, 638);
 
@@ -111,8 +111,8 @@
 
             const data = [
                 `Cree le: ${creationDate} a ${creationHour}`,
-                `Nom: ${parts[0].toUpperCase()}`,
-                `Prenom: ${parts[1]}`,
+                `Nom: ${decodeURIComponent(parts[0]).toUpperCase()}`,
+                `Prenom: ${decodeURIComponent(parts[1])}`,
                 `Naissance: ${parts[2]} a ${decodeURIComponent(parts[3])}`,
                 `Adresse: ${(components.house_number || 9) + " "
                 + (components.street || components.road) + " "

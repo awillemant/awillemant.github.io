@@ -20,6 +20,9 @@
 </head>
 
 <body>
+
+    <p>Cette application est à utiliser <strong>chez soi, juste avant de sortir</strong> !</p>
+
     <button type="button" id="generate-btn" class="btn btn-primary btn-attestation"><span>Générer mon
             attestation</span></button>
 
@@ -179,7 +182,12 @@
                         return generatePDF(components);
                     })
                     .then(function (pdfBlob) {
-                        downloadBlob(pdfBlob, `attestation-plouf.pdf`);
+                        const timeOfDocument = new Date();
+                        timeOfDocument.setMinutes(timeOfDocument.getMinutes() - 15);
+
+                        const creationDate = timeOfDocument.toLocaleDateString('fr-CA');
+                        const creationHour = timeOfDocument.toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit' }).replace(':', '-')
+                        downloadBlob(pdfBlob, `attestation-${creationDate}_${creationHour}.pdf`);
                     })
                 navigator.geolocation.clearWatch(id);
             }

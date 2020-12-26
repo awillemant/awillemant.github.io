@@ -215,6 +215,11 @@
             svg.addEventListener('mousemove', rotate);
             svg.addEventListener('mouseup', endRotate);
             svg.addEventListener('mouseleave', endRotate);
+            svg.addEventListener('touchstart', startRotate);
+            svg.addEventListener('touchmove', rotate);
+            svg.addEventListener('touchend', endRotate);
+            svg.addEventListener('touchcancel', endRotate);
+            svg.addEventListener('touchleave', endRotate);
             function startRotate(evt) {
                 if (evt.target.parentNode.classList.contains('rotatable')) {
                     selectedElement = evt.target.parentNode;

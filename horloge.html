@@ -5,6 +5,11 @@
     <meta charset="utf-8">
     <title>Horloge</title>
     <style>
+        @font-face {
+            font-family: digital;
+            src: url(fonts/Digital\ Dismay.otf);
+        }
+
         line{
             stroke-linecap: round;
         }
@@ -43,171 +48,176 @@
             fill:red;
         }
 
+        h1{
+            font-family: Arial, Helvetica, sans-serif;
+            text-align: center;
+        } 
+        #digital{
+            font-family: digital;
+            text-align: center;
+            font-size: xx-large;
+        }
+        #digital #h{
+            color:red;
+        }
+        #digital #s{
+            color:blue;
+        }
+
         svg{
             border:1px solid black;
+            display: block;
+            margin:auto;
+           
         }
+        html, body{
+            height:100%;
+        }
+        body{
+            display: flex;
+            margin: 0;
+            padding:0;
+            flex-direction: column;
+            justify-content: space-around;
+        }
+        #live{
+            cursor:pointer;
+            background-color: red;
+            border:solid 1px black;
+            vertical-align: middle;
+            margin-right:20px;
+        }
+        #ampm{
+            cursor:pointer;
+            border:solid 1px black;
+            vertical-align: middle;
+            margin-right:20px;
+            width:80px;
+        }
+        
     </style>
 </head>
 
 <body>
     <h1>Horloge</h1>
-<svg width="500" height="500" onload="makeRotatable(evt)" >
-    <g >
-    <line class="h tick mark" x1="0" y1="0" x2="20" y2="0" transform="translate(250,250) rotate(000) translate(160 0)"/>
-    <line class="h tick"      x1="0" y1="0" x2="20" y2="0" transform="translate(250,250) rotate(030) translate(160 0)" />
-    <line class="h tick"      x1="0" y1="0" x2="20" y2="0" transform="translate(250,250) rotate(060) translate(160 0)" />
-    <line class="h tick mark" x1="0" y1="0" x2="20" y2="0" transform="translate(250,250) rotate(090) translate(160 0)" />
-    <line class="h tick"      x1="0" y1="0" x2="20" y2="0" transform="translate(250,250) rotate(120) translate(160 0)" />
-    <line class="h tick"      x1="0" y1="0" x2="20" y2="0" transform="translate(250,250) rotate(150) translate(160 0)" />
-    <line class="h tick mark" x1="0" y1="0" x2="20" y2="0" transform="translate(250,250) rotate(180) translate(160 0)" />
-    <line class="h tick"      x1="0" y1="0" x2="20" y2="0" transform="translate(250,250) rotate(210) translate(160 0)" />
-    <line class="h tick"      x1="0" y1="0" x2="20" y2="0" transform="translate(250,250) rotate(240) translate(160 0)" />
-    <line class="h tick mark" x1="0" y1="0" x2="20" y2="0" transform="translate(250,250) rotate(270) translate(160 0)" />
-    <line class="h tick"      x1="0" y1="0" x2="20" y2="0" transform="translate(250,250) rotate(300) translate(160 0)" />
-    <line class="h tick"      x1="0" y1="0" x2="20" y2="0" transform="translate(250,250) rotate(330) translate(160 0)" />
-    
-    <line class="m tick" x1="0" y1="0" x2="5" y2="0" transform="translate(250,250) rotate(006) translate(175 0)" />
-    <line class="m tick" x1="0" y1="0" x2="5" y2="0" transform="translate(250,250) rotate(012) translate(175 0)" />
-    <line class="m tick" x1="0" y1="0" x2="5" y2="0" transform="translate(250,250) rotate(018) translate(175 0)" />
-    <line class="m tick" x1="0" y1="0" x2="5" y2="0" transform="translate(250,250) rotate(024) translate(175 0)" />
-    <line class="m tick" x1="0" y1="0" x2="5" y2="0" transform="translate(250,250) rotate(036) translate(175 0)" />
-    <line class="m tick" x1="0" y1="0" x2="5" y2="0" transform="translate(250,250) rotate(042) translate(175 0)" />
-    <line class="m tick" x1="0" y1="0" x2="5" y2="0" transform="translate(250,250) rotate(048) translate(175 0)" />
-    <line class="m tick" x1="0" y1="0" x2="5" y2="0" transform="translate(250,250) rotate(054) translate(175 0)" />
-    <line class="m tick" x1="0" y1="0" x2="5" y2="0" transform="translate(250,250) rotate(066) translate(175 0)" />
-    <line class="m tick" x1="0" y1="0" x2="5" y2="0" transform="translate(250,250) rotate(072) translate(175 0)" />
-    <line class="m tick" x1="0" y1="0" x2="5" y2="0" transform="translate(250,250) rotate(078) translate(175 0)" />
-    <line class="m tick" x1="0" y1="0" x2="5" y2="0" transform="translate(250,250) rotate(084) translate(175 0)" />
-    <line class="m tick" x1="0" y1="0" x2="5" y2="0" transform="translate(250,250) rotate(096) translate(175 0)" />
-    <line class="m tick" x1="0" y1="0" x2="5" y2="0" transform="translate(250,250) rotate(102) translate(175 0)" />
-    <line class="m tick" x1="0" y1="0" x2="5" y2="0" transform="translate(250,250) rotate(108) translate(175 0)" />
-    <line class="m tick" x1="0" y1="0" x2="5" y2="0" transform="translate(250,250) rotate(114) translate(175 0)" />
-    <line class="m tick" x1="0" y1="0" x2="5" y2="0" transform="translate(250,250) rotate(126) translate(175 0)" />
-    <line class="m tick" x1="0" y1="0" x2="5" y2="0" transform="translate(250,250) rotate(132) translate(175 0)" />
-    <line class="m tick" x1="0" y1="0" x2="5" y2="0" transform="translate(250,250) rotate(138) translate(175 0)" />
-    <line class="m tick" x1="0" y1="0" x2="5" y2="0" transform="translate(250,250) rotate(144) translate(175 0)" />
-    <line class="m tick" x1="0" y1="0" x2="5" y2="0" transform="translate(250,250) rotate(156) translate(175 0)" />
-    <line class="m tick" x1="0" y1="0" x2="5" y2="0" transform="translate(250,250) rotate(162) translate(175 0)" />
-    <line class="m tick" x1="0" y1="0" x2="5" y2="0" transform="translate(250,250) rotate(168) translate(175 0)" />
-    <line class="m tick" x1="0" y1="0" x2="5" y2="0" transform="translate(250,250) rotate(174) translate(175 0)" />
-    <line class="m tick" x1="0" y1="0" x2="5" y2="0" transform="translate(250,250) rotate(186) translate(175 0)" />
-    <line class="m tick" x1="0" y1="0" x2="5" y2="0" transform="translate(250,250) rotate(192) translate(175 0)" />
-    <line class="m tick" x1="0" y1="0" x2="5" y2="0" transform="translate(250,250) rotate(198) translate(175 0)" />
-    <line class="m tick" x1="0" y1="0" x2="5" y2="0" transform="translate(250,250) rotate(204) translate(175 0)" />
-    <line class="m tick" x1="0" y1="0" x2="5" y2="0" transform="translate(250,250) rotate(216) translate(175 0)" />
-    <line class="m tick" x1="0" y1="0" x2="5" y2="0" transform="translate(250,250) rotate(222) translate(175 0)" />
-    <line class="m tick" x1="0" y1="0" x2="5" y2="0" transform="translate(250,250) rotate(228) translate(175 0)" />
-    <line class="m tick" x1="0" y1="0" x2="5" y2="0" transform="translate(250,250) rotate(234) translate(175 0)" />
-    <line class="m tick" x1="0" y1="0" x2="5" y2="0" transform="translate(250,250) rotate(246) translate(175 0)" />
-    <line class="m tick" x1="0" y1="0" x2="5" y2="0" transform="translate(250,250) rotate(252) translate(175 0)" />
-    <line class="m tick" x1="0" y1="0" x2="5" y2="0" transform="translate(250,250) rotate(258) translate(175 0)" />
-    <line class="m tick" x1="0" y1="0" x2="5" y2="0" transform="translate(250,250) rotate(264) translate(175 0)" />
-    <line class="m tick" x1="0" y1="0" x2="5" y2="0" transform="translate(250,250) rotate(276) translate(175 0)" />
-    <line class="m tick" x1="0" y1="0" x2="5" y2="0" transform="translate(250,250) rotate(282) translate(175 0)" />
-    <line class="m tick" x1="0" y1="0" x2="5" y2="0" transform="translate(250,250) rotate(288) translate(175 0)" />
-    <line class="m tick" x1="0" y1="0" x2="5" y2="0" transform="translate(250,250) rotate(294) translate(175 0)" />
-    <line class="m tick" x1="0" y1="0" x2="5" y2="0" transform="translate(250,250) rotate(306) translate(175 0)" />
-    <line class="m tick" x1="0" y1="0" x2="5" y2="0" transform="translate(250,250) rotate(312) translate(175 0)" />
-    <line class="m tick" x1="0" y1="0" x2="5" y2="0" transform="translate(250,250) rotate(318) translate(175 0)" />
-    <line class="m tick" x1="0" y1="0" x2="5" y2="0" transform="translate(250,250) rotate(324) translate(175 0)" />
-    <line class="m tick" x1="0" y1="0" x2="5" y2="0" transform="translate(250,250) rotate(336) translate(175 0)" />
-    <line class="m tick" x1="0" y1="0" x2="5" y2="0" transform="translate(250,250) rotate(342) translate(175 0)" />
-    <line class="m tick" x1="0" y1="0" x2="5" y2="0" transform="translate(250,250) rotate(348) translate(175 0)" />
-    <line class="m tick" x1="0" y1="0" x2="5" y2="0" transform="translate(250,250) rotate(354) translate(175 0)" />
-    
-    <circle class="cadran" cx="250" cy="250" r="180" />
-    
-    <text class="h digit" x="0" y="0" font-size="30" text-anchor="middle" alignment-baseline="middle" transform="translate(250 250) rotate(000) translate(0 -220) rotate(0)">12</text>
-    <text class="h digit" x="0" y="0" font-size="30" text-anchor="middle" alignment-baseline="middle" transform="translate(250 250) rotate(030) translate(0 -220) rotate(-30)">1</text>
-    <text class="h digit" x="0" y="0" font-size="30" text-anchor="middle" alignment-baseline="middle" transform="translate(250 250) rotate(060) translate(0 -220) rotate(-60)">2</text>
-    <text class="h digit" x="0" y="0" font-size="30" text-anchor="middle" alignment-baseline="middle" transform="translate(250 250) rotate(090) translate(0 -220) rotate(-90)">3</text>
-    <text class="h digit" x="0" y="0" font-size="30" text-anchor="middle" alignment-baseline="middle" transform="translate(250 250) rotate(120) translate(0 -220) rotate(-120)">4</text>
-    <text class="h digit" x="0" y="0" font-size="30" text-anchor="middle" alignment-baseline="middle" transform="translate(250 250) rotate(150) translate(0 -220) rotate(-150)">5</text>
-    <text class="h digit" x="0" y="0" font-size="30" text-anchor="middle" alignment-baseline="middle" transform="translate(250 250) rotate(180) translate(0 -220) rotate(-180)">6</text>
-    <text class="h digit" x="0" y="0" font-size="30" text-anchor="middle" alignment-baseline="middle" transform="translate(250 250) rotate(210) translate(0 -220) rotate(-210)">7</text>
-    <text class="h digit" x="0" y="0" font-size="30" text-anchor="middle" alignment-baseline="middle" transform="translate(250 250) rotate(240) translate(0 -220) rotate(-240)">8</text>
-    <text class="h digit" x="0" y="0" font-size="30" text-anchor="middle" alignment-baseline="middle" transform="translate(250 250) rotate(270) translate(0 -220) rotate(-270)">9</text>
-    <text class="h digit" x="0" y="0" font-size="30" text-anchor="middle" alignment-baseline="middle" transform="translate(250 250) rotate(300) translate(0 -220) rotate(-300)">10</text>
-    <text class="h digit" x="0" y="0" font-size="30" text-anchor="middle" alignment-baseline="middle" transform="translate(250 250) rotate(330) translate(0 -220) rotate(-330)">11</text>
-    <text class="m digit" x="0" y="0" font-size="10" text-anchor="middle" alignment-baseline="middle" transform="translate(250 250) rotate(000) translate(0 -190) rotate(-000)">00</text>
-    <text class="m digit" x="0" y="0" font-size="10" text-anchor="middle" alignment-baseline="middle" transform="translate(250 250) rotate(006) translate(0 -190) rotate(-006)">01</text>
-    <text class="m digit" x="0" y="0" font-size="10" text-anchor="middle" alignment-baseline="middle" transform="translate(250 250) rotate(012) translate(0 -190) rotate(-012)">02</text>
-    <text class="m digit" x="0" y="0" font-size="10" text-anchor="middle" alignment-baseline="middle" transform="translate(250 250) rotate(018) translate(0 -190) rotate(-018)">03</text>
-    <text class="m digit" x="0" y="0" font-size="10" text-anchor="middle" alignment-baseline="middle" transform="translate(250 250) rotate(024) translate(0 -190) rotate(-024)">04</text>
-    <text class="m digit" x="0" y="0" font-size="10" text-anchor="middle" alignment-baseline="middle" transform="translate(250 250) rotate(030) translate(0 -190) rotate(-030)">05</text>
-    <text class="m digit" x="0" y="0" font-size="10" text-anchor="middle" alignment-baseline="middle" transform="translate(250 250) rotate(036) translate(0 -190) rotate(-036)">06</text>
-    <text class="m digit" x="0" y="0" font-size="10" text-anchor="middle" alignment-baseline="middle" transform="translate(250 250) rotate(042) translate(0 -190) rotate(-042)">07</text>
-    <text class="m digit" x="0" y="0" font-size="10" text-anchor="middle" alignment-baseline="middle" transform="translate(250 250) rotate(048) translate(0 -190) rotate(-048)">08</text>
-    <text class="m digit" x="0" y="0" font-size="10" text-anchor="middle" alignment-baseline="middle" transform="translate(250 250) rotate(054) translate(0 -190) rotate(-054)">09</text>
-    <text class="m digit" x="0" y="0" font-size="10" text-anchor="middle" alignment-baseline="middle" transform="translate(250 250) rotate(060) translate(0 -190) rotate(-060)">10</text>
-    <text class="m digit" x="0" y="0" font-size="10" text-anchor="middle" alignment-baseline="middle" transform="translate(250 250) rotate(066) translate(0 -190) rotate(-066)">11</text>
-    <text class="m digit" x="0" y="0" font-size="10" text-anchor="middle" alignment-baseline="middle" transform="translate(250 250) rotate(072) translate(0 -190) rotate(-072)">12</text>
-    <text class="m digit" x="0" y="0" font-size="10" text-anchor="middle" alignment-baseline="middle" transform="translate(250 250) rotate(078) translate(0 -190) rotate(-078)">13</text>
-    <text class="m digit" x="0" y="0" font-size="10" text-anchor="middle" alignment-baseline="middle" transform="translate(250 250) rotate(084) translate(0 -190) rotate(-084)">14</text>
-    <text class="m digit" x="0" y="0" font-size="10" text-anchor="middle" alignment-baseline="middle" transform="translate(250 250) rotate(090) translate(0 -190) rotate(-090)">15</text>
-    <text class="m digit" x="0" y="0" font-size="10" text-anchor="middle" alignment-baseline="middle" transform="translate(250 250) rotate(096) translate(0 -190) rotate(-096)">16</text>
-    <text class="m digit" x="0" y="0" font-size="10" text-anchor="middle" alignment-baseline="middle" transform="translate(250 250) rotate(102) translate(0 -190) rotate(-102)">17</text>
-    <text class="m digit" x="0" y="0" font-size="10" text-anchor="middle" alignment-baseline="middle" transform="translate(250 250) rotate(108) translate(0 -190) rotate(-108)">18</text>
-    <text class="m digit" x="0" y="0" font-size="10" text-anchor="middle" alignment-baseline="middle" transform="translate(250 250) rotate(114) translate(0 -190) rotate(-114)">19</text>
-    <text class="m digit" x="0" y="0" font-size="10" text-anchor="middle" alignment-baseline="middle" transform="translate(250 250) rotate(120) translate(0 -190) rotate(-120)">20</text>
-    <text class="m digit" x="0" y="0" font-size="10" text-anchor="middle" alignment-baseline="middle" transform="translate(250 250) rotate(126) translate(0 -190) rotate(-126)">21</text>
-    <text class="m digit" x="0" y="0" font-size="10" text-anchor="middle" alignment-baseline="middle" transform="translate(250 250) rotate(132) translate(0 -190) rotate(-132)">22</text>
-    <text class="m digit" x="0" y="0" font-size="10" text-anchor="middle" alignment-baseline="middle" transform="translate(250 250) rotate(138) translate(0 -190) rotate(-138)">23</text>
-    <text class="m digit" x="0" y="0" font-size="10" text-anchor="middle" alignment-baseline="middle" transform="translate(250 250) rotate(144) translate(0 -190) rotate(-144)">24</text>
-    <text class="m digit" x="0" y="0" font-size="10" text-anchor="middle" alignment-baseline="middle" transform="translate(250 250) rotate(150) translate(0 -190) rotate(-150)">25</text>
-    <text class="m digit" x="0" y="0" font-size="10" text-anchor="middle" alignment-baseline="middle" transform="translate(250 250) rotate(156) translate(0 -190) rotate(-156)">26</text>
-    <text class="m digit" x="0" y="0" font-size="10" text-anchor="middle" alignment-baseline="middle" transform="translate(250 250) rotate(162) translate(0 -190) rotate(-162)">27</text>
-    <text class="m digit" x="0" y="0" font-size="10" text-anchor="middle" alignment-baseline="middle" transform="translate(250 250) rotate(168) translate(0 -190) rotate(-168)">28</text>
-    <text class="m digit" x="0" y="0" font-size="10" text-anchor="middle" alignment-baseline="middle" transform="translate(250 250) rotate(174) translate(0 -190) rotate(-174)">29</text>
-    <text class="m digit" x="0" y="0" font-size="10" text-anchor="middle" alignment-baseline="middle" transform="translate(250 250) rotate(180) translate(0 -190) rotate(-180)">30</text>
-    <text class="m digit" x="0" y="0" font-size="10" text-anchor="middle" alignment-baseline="middle" transform="translate(250 250) rotate(186) translate(0 -190) rotate(-186)">31</text>
-    <text class="m digit" x="0" y="0" font-size="10" text-anchor="middle" alignment-baseline="middle" transform="translate(250 250) rotate(192) translate(0 -190) rotate(-192)">32</text>
-    <text class="m digit" x="0" y="0" font-size="10" text-anchor="middle" alignment-baseline="middle" transform="translate(250 250) rotate(198) translate(0 -190) rotate(-198)">33</text>
-    <text class="m digit" x="0" y="0" font-size="10" text-anchor="middle" alignment-baseline="middle" transform="translate(250 250) rotate(204) translate(0 -190) rotate(-204)">34</text>
-    <text class="m digit" x="0" y="0" font-size="10" text-anchor="middle" alignment-baseline="middle" transform="translate(250 250) rotate(210) translate(0 -190) rotate(-210)">35</text>
-    <text class="m digit" x="0" y="0" font-size="10" text-anchor="middle" alignment-baseline="middle" transform="translate(250 250) rotate(216) translate(0 -190) rotate(-216)">36</text>
-    <text class="m digit" x="0" y="0" font-size="10" text-anchor="middle" alignment-baseline="middle" transform="translate(250 250) rotate(222) translate(0 -190) rotate(-222)">37</text>
-    <text class="m digit" x="0" y="0" font-size="10" text-anchor="middle" alignment-baseline="middle" transform="translate(250 250) rotate(228) translate(0 -190) rotate(-228)">38</text>
-    <text class="m digit" x="0" y="0" font-size="10" text-anchor="middle" alignment-baseline="middle" transform="translate(250 250) rotate(234) translate(0 -190) rotate(-234)">39</text>
-    <text class="m digit" x="0" y="0" font-size="10" text-anchor="middle" alignment-baseline="middle" transform="translate(250 250) rotate(240) translate(0 -190) rotate(-240)">40</text>
-    <text class="m digit" x="0" y="0" font-size="10" text-anchor="middle" alignment-baseline="middle" transform="translate(250 250) rotate(246) translate(0 -190) rotate(-246)">41</text>
-    <text class="m digit" x="0" y="0" font-size="10" text-anchor="middle" alignment-baseline="middle" transform="translate(250 250) rotate(252) translate(0 -190) rotate(-252)">42</text>
-    <text class="m digit" x="0" y="0" font-size="10" text-anchor="middle" alignment-baseline="middle" transform="translate(250 250) rotate(258) translate(0 -190) rotate(-258)">43</text>
-    <text class="m digit" x="0" y="0" font-size="10" text-anchor="middle" alignment-baseline="middle" transform="translate(250 250) rotate(264) translate(0 -190) rotate(-264)">44</text>
-    <text class="m digit" x="0" y="0" font-size="10" text-anchor="middle" alignment-baseline="middle" transform="translate(250 250) rotate(270) translate(0 -190) rotate(-270)">45</text>
-    <text class="m digit" x="0" y="0" font-size="10" text-anchor="middle" alignment-baseline="middle" transform="translate(250 250) rotate(276) translate(0 -190) rotate(-276)">46</text>
-    <text class="m digit" x="0" y="0" font-size="10" text-anchor="middle" alignment-baseline="middle" transform="translate(250 250) rotate(282) translate(0 -190) rotate(-282)">47</text>
-    <text class="m digit" x="0" y="0" font-size="10" text-anchor="middle" alignment-baseline="middle" transform="translate(250 250) rotate(288) translate(0 -190) rotate(-288)">48</text>
-    <text class="m digit" x="0" y="0" font-size="10" text-anchor="middle" alignment-baseline="middle" transform="translate(250 250) rotate(294) translate(0 -190) rotate(-294)">49</text>
-    <text class="m digit" x="0" y="0" font-size="10" text-anchor="middle" alignment-baseline="middle" transform="translate(250 250) rotate(300) translate(0 -190) rotate(-300)">50</text>
-    <text class="m digit" x="0" y="0" font-size="10" text-anchor="middle" alignment-baseline="middle" transform="translate(250 250) rotate(306) translate(0 -190) rotate(-306)">51</text>
-    <text class="m digit" x="0" y="0" font-size="10" text-anchor="middle" alignment-baseline="middle" transform="translate(250 250) rotate(312) translate(0 -190) rotate(-312)">52</text>
-    <text class="m digit" x="0" y="0" font-size="10" text-anchor="middle" alignment-baseline="middle" transform="translate(250 250) rotate(318) translate(0 -190) rotate(-318)">53</text>
-    <text class="m digit" x="0" y="0" font-size="10" text-anchor="middle" alignment-baseline="middle" transform="translate(250 250) rotate(324) translate(0 -190) rotate(-324)">54</text>
-    <text class="m digit" x="0" y="0" font-size="10" text-anchor="middle" alignment-baseline="middle" transform="translate(250 250) rotate(330) translate(0 -190) rotate(-330)">55</text>
-    <text class="m digit" x="0" y="0" font-size="10" text-anchor="middle" alignment-baseline="middle" transform="translate(250 250) rotate(336) translate(0 -190) rotate(-336)">56</text>
-    <text class="m digit" x="0" y="0" font-size="10" text-anchor="middle" alignment-baseline="middle" transform="translate(250 250) rotate(342) translate(0 -190) rotate(-342)">57</text>
-    <text class="m digit" x="0" y="0" font-size="10" text-anchor="middle" alignment-baseline="middle" transform="translate(250 250) rotate(348) translate(0 -190) rotate(-348)">58</text>
-    <text class="m digit" x="0" y="0" font-size="10" text-anchor="middle" alignment-baseline="middle" transform="translate(250 250) rotate(354) translate(0 -190) rotate(-354)">59</text>
-    </g>
-    <g id="minutes" class="rotatable" fill="gray" transform="translate(250 250) rotate(-90)">
+   
+<svg height="500" width="600" onload="makeRotatable(evt)" >
+    <g id="clock"></g>
+    <g id="minutes" class="rotatable" fill="gray" >
         <circle cx="0" cy="0" r="25" />
-        <polygon points="0 -25, 0 25, 150 0" />
+        <polygon points="0 -25, 0 25, 185 0" />
         <circle cx="0" cy="0" r="10" fill="white" />
     </g>
-    <g id="heures" class="rotatable" fill="red" transform="translate(250 250) rotate(-90)">
+    <g id="heures" class="rotatable" fill="red" >
         <circle cx="0" cy="0" r="20" />
-        <polygon points="0 -20, 0 20, 100 0" />
+        <polygon points="0 -20, 0 20, 120 0" />
         <circle cx="0" cy="0" r="10" fill="white" />
+    </g>
+    <g id="secondes" class="rotatable live" fill="blue" >
+        <circle cx="0" cy="0" r="2" />
+        <polygon points="0 -2, 0 2, 190 0" />
     </g>
 </svg>
-<div>
-    <span id="h">00</span>:<span id="m">00</span>
+<div id="digital">
+    <button id="live">Live</button><span id="h">00</span>:<span id="m">00</span><span class="live">:<span id="s">00</span></span><button id="ampm">Matin</button>
 </div>
 
 <script>
-    var cx=250;
+    var isAm=new Date().getHours()<12;
+    document.getElementById("ampm").innerHTML=isAm?"matin":"après-midi";
+    document.getElementById("ampm").style.visibility="hidden";
+    var live=true;
+    var cx=300;
     var cy=250;
+    var radius=200;
+    var shortTickSize=5;
+    var longTickSize=15;
+    var hourDigitDistance=230;
+    var minutesDigitDistance=208;
+   
+    var clock=document.getElementById("clock");
+    for(var i=0;i<60;i++){
+        var l=shortTickSize;
+        var cl="tick";
+        if(i%5==0){
+            if(i%15==0){
+                cl+=" mark";
+            }
+            cl+=" h";
+            l=longTickSize;
+            clock.appendChild(toSvg("text",{"class":"h digit","x1":0,"y1":0,"font-size":30,"text-anchor":"middle","alignment-baseline":"middle","transform":"translate("+cx+" "+cy+") rotate("+i*6+") translate(0 -"+hourDigitDistance+") rotate("+(-i*6)+")"},i/5==0?"12":i/5));
+        }else{
+            cl+=" m";
+        }
+        clock.appendChild(toSvg("line",{"class":cl,"x1":0,"y1":0,"x2":l,"y2":0,"transform":"translate("+cx+" "+cy+") rotate("+i*6+") translate("+(radius-l)+" 0)"}));
+        clock.appendChild(toSvg("text",{"class":"m digit","x1":0,"y1":0,"font-size":8,"text-anchor":"middle","alignment-baseline":"middle","transform":"translate("+cx+" "+cy+") rotate("+i*6+") translate(0 -"+minutesDigitDistance+") rotate("+(-i*6)+")"},leftPad(i,2,"0")));
+    }
+    clock.appendChild(toSvg("circle",{"class":"cadran","cx":cx,"cy":cy,"r":radius}));
+    document.getElementById("heures").setAttributeNS(null,"transform","translate("+cx+" "+cy+") rotate(-90)");
+    document.getElementById("minutes").setAttributeNS(null,"transform","translate("+cx+" "+cy+") rotate(-90)");
+    document.getElementById("secondes").setAttributeNS(null,"transform","translate("+cx+" "+cy+") rotate(-90)");
+
+
+
+    function toSvg(tagName,attrs,body){
+        var elt=document.createElementNS("http://www.w3.org/2000/svg",tagName);
+        for(var k in attrs){
+            elt.setAttributeNS(null,k,attrs[k]);
+        } 
+        elt.innerHTML=body;
+        return elt;
+    }
+
+
+    function leftPad(string,length,char){
+        var result = ""+string;
+        while(result.length<length){
+            result=char+result;
+        }
+        return result;
+    }
+
+    var nowInterval=setInterval(now,1000);
+   
+    function now(){
+        var now=new Date();
+        var heures = now.getHours()%12;
+        var minutes = now.getMinutes();
+        var secondes = now.getSeconds();
+        document.getElementById("h").innerText = leftPad(String(heures),2,"0");
+        document.getElementById("m").innerText = leftPad(String(minutes), 2, "0");
+        document.getElementById("s").innerText = leftPad(String(secondes), 2, "0");
+        document.getElementById("heures").transform.baseVal.getItem(1).setRotate((heures*30+(minutes*30/60))-90,0,0);
+        document.getElementById("minutes").transform.baseVal.getItem(1).setRotate((minutes*6+(6*secondes/60))-90,0,0);
+        
+       
+        document.getElementById("secondes").transform.baseVal.getItem(1).setRotate(secondes*6-90,0,0);
+    }
+
+    document.getElementById("live").addEventListener('mouseup', function(){
+        if(live){
+            clearInterval(nowInterval);
+            document.querySelectorAll(".live").forEach(e=>e.style.visibility="hidden");
+            document.getElementById("live").style.backgroundColor="white";
+            document.getElementById("ampm").style.visibility="visible";
+            live=false;
+        }else{
+            nowInterval=setInterval(now,100);
+            document.querySelectorAll(".live").forEach(e=>e.style.visibility="visible");
+            document.getElementById("live").style.backgroundColor="red";
+            document.getElementById("ampm").style.visibility="hidden";
+            live=true;
+        }
+    });
+
+    document.getElementById("ampm").addEventListener('mouseup', function(){
+        var currentHour = Number(document.getElementById("h").innerHTML);
+        isAm=!isAm;
+        document.getElementById("h").innerHTML=String(leftPad((currentHour+12)%24,2,"0"));
+        document.getElementById("ampm").innerHTML=isAm?"matin":"après-midi";
+    });
+
+
     var selectedElement = false;
     function makeRotatable(evt) {
             var svg = evt.target;
@@ -225,21 +235,42 @@
                     selectedElement = evt.target.parentNode;
                 }
             }
+            function getMousePosition(evt) {
+                var CTM = svg.getScreenCTM();
+                if (evt.touches) { evt = evt.touches[0]; }
+                return {
+                    x: (evt.clientX - CTM.e) / CTM.a,
+                    y: (evt.clientY - CTM.f) / CTM.d
+                };
+            }   
             function rotate(evt) {
                 if (selectedElement) {
                     evt.preventDefault();
-                    var dx = evt.offsetX - cx;
-                    var dy = evt.offsetY - cy;
+                    var dim = evt.target.getBoundingClientRect();
+                    var mousePos = getMousePosition(evt);
+                    var dx=mousePos.x-cx;
+                    var dy=mousePos.y-cy;
+                   
                     var angleSouris = (Math.atan2(dy, dx) * 180 / Math.PI)+90 ;
                     if(angleSouris<0){
                         angleSouris+=360;
                     }
                     var angleAiguille = selectedElement.transform.baseVal.getItem(1).angle+90;
-                    if(angleAiguille<0){
-                        angleAiguille = 12*360+angleAiguille;
+                    if (selectedElement.id == "minutes") {
+                        if(angleAiguille<0){
+                            angleAiguille = 12*360+angleAiguille;
+                        }
+                        if(angleAiguille>12*360){
+                            angleAiguille = angleAiguille-(12*360);
+                        }
                     }
-                    if(angleAiguille>12*360){
-                        angleAiguille = angleAiguille-(12*360);
+                    if (selectedElement.id == "heures") {
+                        if (angleAiguille < 0) {
+                            angleAiguille = 360 + angleAiguille;
+                        }
+                        if (angleAiguille > 360) {
+                            angleAiguille = angleAiguille - (360);
+                        }
                     }
                     var delta = angleSouris-angleAiguille%360;
                     var da=null;
@@ -254,7 +285,7 @@
                     }
                     selectedElement.transform.baseVal.getItem(1).setRotate(angleAiguille+delta-90, 0, 0);
                     if(selectedElement.id=="minutes"){
-                        updateHeures(angleAiguille+delta);
+                        updateHeures(angleAiguille + delta);
                     }
                     if (selectedElement.id == "heures") {
                         updateMinutes(angleAiguille + delta);
@@ -268,8 +299,8 @@
                 aiguille.transform.baseVal.getItem(1).setRotate((angle/12)-90,0,0);
                 var heures = Math.floor(angle / 360);
                 var minutes = Math.floor((angle % 360) / 6);
-                document.getElementById("h").innerText = heures;
-                document.getElementById("m").innerText = minutes;
+                document.getElementById("h").innerText = leftPad(String(heures+(!isAm?12:0)),2,"0");
+                document.getElementById("m").innerText = leftPad(String(minutes), 2, "0");
             }
 
             function updateMinutes(angle) {
@@ -277,24 +308,21 @@
                 aiguille.transform.baseVal.getItem(1).setRotate((angle * 12) - 90, 0, 0);
                 var heures = Math.floor(angle*12 / 360);
                 var minutes = Math.floor((angle*12 % 360) / 6);
-                document.getElementById("h").innerText = leftPad(heures,2,"0");
-                document.getElementById("m").innerText = leftPad(minutes, 2, "0");
+                document.getElementById("h").innerText = leftPad(String(heures+(!isAm?12:0)),2,"0");
+                document.getElementById("m").innerText = leftPad(String(minutes), 2, "0");
             }
+            function updateSecondes(angle) {
+                var aiguille = document.getElementById("secondes");
+                aiguille.transform.baseVal.getItem(1).setRotate(angle-90, 0, 0);
+                
+            }
+  
             
-                  
-
-
             function endRotate(evt) {
                 selectedElement = null;
             }
 
-            function leftPad(string,length,char){
-                var result = ""+string;
-                while(result.length<length){
-                    result=char+result;
-                }
-                return result;
-            }
+            
         }
 
 

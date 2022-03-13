@@ -327,7 +327,7 @@ var nowInterval=setInterval(displayNow,1000);
 
 
 document.getElementById("ampm").innerHTML=isAm?"matin":"après-midi";
-document.getElementById("ampm").style.visibility="hidden";
+document.getElementById("ampm").style.display="none";
 
 
 (function drawClock(){
@@ -399,14 +399,14 @@ document.getElementById("ampm").style.visibility="hidden";
             document.querySelectorAll(".live").forEach(e=>e.style.display="none");
             document.getElementById("live").style.backgroundColor="white";
             document.getElementById("live").innerHTML="mode Live : off";
-            document.getElementById("ampm").style.visibility="visible";
+            document.getElementById("ampm").style.display="inline";
             live=false;
         }else{
             nowInterval=setInterval(displayNow,100);
             document.querySelectorAll(".live").forEach(e=>e.style.display="inline");
             document.getElementById("live").style.backgroundColor="red";
             document.getElementById("live").innerHTML="mode Live : on";
-            document.getElementById("ampm").style.visibility="hidden";
+            document.getElementById("ampm").style.display="none";
             live=true;
         }
     });

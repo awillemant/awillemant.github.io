@@ -189,7 +189,7 @@ function makeRotatable(evt) {
     svg.addEventListener('touchcancel', endRotate);
     svg.addEventListener('touchleave', endRotate);
     function startRotate(evt) {
-        if (evt.target.parentNode.classList.contains('rotatable')) {
+        if (!live && evt.target.parentNode.classList.contains('rotatable')) {
             selectedElement = evt.target.parentNode;
         }
     }

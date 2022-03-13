@@ -5,6 +5,12 @@
     <meta charset="utf-8">
     <title>Horloge</title>
     <style>
+        body{
+            font-family: Arial, Helvetica, sans-serif;
+        }
+        h1{
+            margin-bottom:0;
+        }
         @font-face {
             font-family: digital;
             src: url(fonts/Digital\ Dismay.otf);
@@ -94,7 +100,7 @@
             margin-right:20px;
             width:80px;
         }
-        .enabler{
+        .config{
             text-align: center;
         }
         .enabler button {
@@ -107,17 +113,9 @@
 
 <body>
     <h1>Horloge</h1>
-<div class="enabler">
-    <button class="m">Minutes</button>
-    <button class="h">Heures</button>
-    <button class="hh">Heures 3.6.9.12</button>
-    <button class="gradm">grad. M</button>
-    <button class="gradh">grad. H</button>
-    <button class="gradhh">grad. 3.6.9.12</button>
-    <button class="cadran">cadran</button>
-</div>
-<div>
-    <p> Graduation : <input type="range" id="vol" name="vol" min="0" max="3" step="1" /></p>
+<div class="config">
+    <p> Graduation : <input type="range" id="grad" name="grad" min="0" max="4" step="1" value="4" />
+    Chiffres : <input type="range" id="digits" name="digits" min="0" max="3" step="1" value="3" /></p>
 </div>
 <svg height="500" width="600" onload="makeRotatable(evt)" >
     <g id="clock"></g>
@@ -175,19 +173,41 @@
     document.getElementById("minutes").setAttributeNS(null,"transform","translate("+cx+" "+cy+") rotate(-90)");
     document.getElementById("secondes").setAttributeNS(null,"transform","translate("+cx+" "+cy+") rotate(-90)");
 
-    function configureButton(button,element){
-        document.querySelectorAll(button)[0].addEventListener('mouseup', function(){
-        var current = document.querySelectorAll(element)[0].style.visibility;
-        document.querySelectorAll(element).forEach(e=>e.style.visibility=(current=="hidden"?"visible":"hidden"))
-       });
-    }
-    configureButton(".enabler button.cadran","circle.cadran");
-    configureButton(".enabler button.m","text.m");
-    configureButton(".enabler button.h","text.h:not(.mark)");
-    configureButton(".enabler button.hh","text.h.mark");
-    configureButton(".enabler button.gradm","line.m");
-    configureButton(".enabler button.gradh","line.h:not(.mark)");
-    configureButton(".enabler button.gradhh","line.h.mark");
+
+
+    document.getElementById("grad").addEventListener("change",function(evt){
+        var value = evt.srcElement.value;
+        document.querySelectorAll("line.m").forEach(e=>e.style.visibility="visible");
+        document.querySelectorAll("line.h").forEach(e=>e.style.visibility="visible");
+        document.querySelectorAll("circle.cadran").forEach(e=>e.style.visibility="visible");
+        if(value<4){
+            document.querySelectorAll("line.m").forEach(e=>e.style.visibility="hidden");
+            if(value<3){
+                document.querySelectorAll("line.h:not(.mark)").forEach(e=>e.style.visibility="hidden");
+                if(value<2){
+                    document.querySelectorAll("line.h.mark").forEach(e=>e.style.visibility="hidden");
+                    if(value<1){
+                        document.querySelectorAll("circle.cadran").forEach(e=>e.style.visibility="hidden");
+                    }
+                }
+            }
+        }
+    });
+
+    document.getElementById("digits").addEventListener("change",function(evt){
+        var value = evt.srcElement.value;
+        document.querySelectorAll("text.m").forEach(e=>e.style.visibility="visible");
+        document.querySelectorAll("text.h").forEach(e=>e.style.visibility="visible");
+        if(value<3){
+            document.querySelectorAll("text.m").forEach(e=>e.style.visibility="hidden");
+            if(value<2){
+                document.querySelectorAll("text.h:not(.mark)").forEach(e=>e.style.visibility="hidden");
+                if(value<1){
+                    document.querySelectorAll("text.h.mark").forEach(e=>e.style.visibility="hidden");
+                }
+            }
+        }
+    })
 
 
     function toSvg(tagName,attrs,body){

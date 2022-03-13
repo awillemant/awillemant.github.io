@@ -71,11 +71,14 @@
             font-weight: bold;
             fill:red;
         }
-       
         #digital{
+            min-width: 300px;
+        }
+        #digital p{
             font-family: digital;
             text-align: center;
             font-size:500%;
+            margin: 0;
         }
         #digital #h{
             color:red;
@@ -100,8 +103,8 @@
             cursor:pointer;
             border:solid 1px black;
             vertical-align: middle;
-            margin-right:20px;
-            width:80px;
+            margin:10px auto;
+            font-size: x-large;
         }
         [type=range]{
             -webkit-appearance: none;
@@ -380,14 +383,14 @@ document.getElementById("ampm").style.visibility="hidden";
     document.getElementById("live").addEventListener('mouseup', function(){
         if(live){
             clearInterval(nowInterval);
-            document.querySelectorAll(".live").forEach(e=>e.style.visibility="hidden");
+            document.querySelectorAll(".live").forEach(e=>e.style.display="none");
             document.getElementById("live").style.backgroundColor="white";
             document.getElementById("live").innerHTML="mode Live : off";
             document.getElementById("ampm").style.visibility="visible";
             live=false;
         }else{
             nowInterval=setInterval(displayNow,100);
-            document.querySelectorAll(".live").forEach(e=>e.style.visibility="visible");
+            document.querySelectorAll(".live").forEach(e=>e.style.display="inline");
             document.getElementById("live").style.backgroundColor="red";
             document.getElementById("live").innerHTML="mode Live : on";
             document.getElementById("ampm").style.visibility="hidden";

@@ -31,6 +31,21 @@
             margin:0;
             padding:20px;
         }
+
+        #config p{
+            margin:0;
+            padding:20px;
+        }
+        
+        #config p button{
+            cursor:pointer;
+            background-color: red;
+            border:solid 1px black;
+            vertical-align: middle;
+            font-size: x-large;
+            margin-left: 50px;
+            padding: 5px 10px;
+        }
         #playground{
             flex-grow: 1;
             display:flex;
@@ -91,15 +106,7 @@
             border:1px solid black;
             display: block;     
         }   
-        #live{
-            cursor:pointer;
-            background-color: red;
-            border:solid 1px black;
-            vertical-align: middle;
-            font-size: x-large;
-            margin-left: 50px;
-            padding: 5px 10px;
-        }
+        
         #ampm{
             cursor:pointer;
             border:solid 1px black;
@@ -134,9 +141,14 @@
 <body>
 <h1>Horloge</h1>
 <div id="config">
+    <p>
         Graduation : <input type="range" id="grad" name="grad" min="0" max="4" step="1" value="4" />
         Chiffres : <input type="range" id="digits" name="digits" min="0" max="3" step="1" value="3" />
-        <button id="live"> mode Live : on</button>
+    </p>
+    <p>
+        <button id="live">mode Live : on</button>
+        <button id="showDigital">digital</button>
+    </p>
 </div>
 <div id="playground">
     <svg height="700" width="700" onload="makeRotatable(evt)" >
@@ -396,6 +408,19 @@ document.getElementById("ampm").style.visibility="hidden";
             document.getElementById("live").innerHTML="mode Live : on";
             document.getElementById("ampm").style.visibility="hidden";
             live=true;
+        }
+    });
+})();
+
+(function configureDigitalButton(){
+    document.getElementById("showDigital").addEventListener('mouseup', function(){
+        var current= document.getElementById("digital").style.visibility;
+        if(current === "hidden"){
+            document.getElementById("showDigital").style.backgroundColor="red";
+            document.getElementById("digital").style.visibility="visible";
+        }else{
+            document.getElementById("showDigital").style.backgroundColor="white";
+            document.getElementById("digital").style.visibility="hidden";
         }
     });
 })();

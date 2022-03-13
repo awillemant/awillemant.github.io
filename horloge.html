@@ -75,7 +75,7 @@
         #digital{
             font-family: digital;
             text-align: center;
-            font-size:300%;
+            font-size:500%;
         }
         #digital #h{
             color:red;
@@ -92,7 +92,9 @@
             background-color: red;
             border:solid 1px black;
             vertical-align: middle;
-            margin-right:20px;
+            font-size: x-large;
+            margin-left: 50px;
+            padding: 5px 10px;
         }
         #ampm{
             cursor:pointer;
@@ -128,8 +130,9 @@
 <body>
 <h1>Horloge</h1>
 <div id="config">
-    Graduation : <input type="range" id="grad" name="grad" min="0" max="4" step="1" value="4" />
-    Chiffres : <input type="range" id="digits" name="digits" min="0" max="3" step="1" value="3" />
+        Graduation : <input type="range" id="grad" name="grad" min="0" max="4" step="1" value="4" />
+        Chiffres : <input type="range" id="digits" name="digits" min="0" max="3" step="1" value="3" />
+        <button id="live"> mode Live : on</button>
 </div>
 <div id="playground">
     <svg height="700" width="700" onload="makeRotatable(evt)" >
@@ -150,7 +153,8 @@
         </g>
     </svg>
     <div id="digital">
-        <button id="live">Live</button><span id="h">00</span>:<span id="m">00</span><span class="live">:<span id="s">00</span></span><button id="ampm">Matin</button>
+        <p><span id="h">00</span>:<span id="m">00</span><span class="live">:<span id="s">00</span></span></p>
+        <button id="ampm">Matin</button>
     </div>
 </div>
 
@@ -378,12 +382,14 @@ document.getElementById("ampm").style.visibility="hidden";
             clearInterval(nowInterval);
             document.querySelectorAll(".live").forEach(e=>e.style.visibility="hidden");
             document.getElementById("live").style.backgroundColor="white";
+            document.getElementById("live").innerHTML="mode Live : off";
             document.getElementById("ampm").style.visibility="visible";
             live=false;
         }else{
-            nowInterval=setInterval(now,100);
+            nowInterval=setInterval(displayNow,100);
             document.querySelectorAll(".live").forEach(e=>e.style.visibility="visible");
             document.getElementById("live").style.backgroundColor="red";
+            document.getElementById("live").innerHTML="mode Live : on";
             document.getElementById("ampm").style.visibility="hidden";
             live=true;
         }

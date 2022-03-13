@@ -305,8 +305,8 @@ var cy=350;
 var radius=280;
 var shortTickSize=5;
 var longTickSize=15;
-var hourDigitDistance=310;
-var minutesDigitDistance=288;
+var hourDigitDistance=320;
+var minutesDigitDistance=290;
 var nowInterval=setInterval(displayNow,1000);
 
 
@@ -325,12 +325,12 @@ document.getElementById("ampm").style.visibility="hidden";
             }
             cl+=" h";
             l=longTickSize;
-            clock.appendChild(toSvg("text",{"class":(i%15==0)?"h digit mark":"h digit","x1":0,"y1":0,"font-size":30,"text-anchor":"middle","alignment-baseline":"middle","transform":"translate("+cx+" "+cy+") rotate("+i*6+") translate(0 -"+hourDigitDistance+") rotate("+(-i*6)+")"},i/5==0?"12":i/5));
+            clock.appendChild(toSvg("text",{"class":(i%15==0)?"h digit mark":"h digit","x1":0,"y1":0,"font-size":40,"text-anchor":"middle","alignment-baseline":"middle","transform":"translate("+cx+" "+cy+") rotate("+i*6+") translate(0 -"+hourDigitDistance+") rotate("+(-i*6)+")"},i/5==0?"12":i/5));
         }else{
             cl+=" m";
         }
         clock.appendChild(toSvg("line",{"class":cl,"x1":0,"y1":0,"x2":l,"y2":0,"transform":"translate("+cx+" "+cy+") rotate("+i*6+") translate("+(radius-l)+" 0)"}));
-        clock.appendChild(toSvg("text",{"class":"m digit","x1":0,"y1":0,"font-size":8,"text-anchor":"middle","alignment-baseline":"middle","transform":"translate("+cx+" "+cy+") rotate("+i*6+") translate(0 -"+minutesDigitDistance+") rotate("+(-i*6)+")"},leftPad(i,2,"0")));
+        clock.appendChild(toSvg("text",{"class":"m digit","x1":0,"y1":0,"font-size":10,"text-anchor":"middle","alignment-baseline":"middle","transform":"translate("+cx+" "+cy+") rotate("+i*6+") translate(0 -"+minutesDigitDistance+") rotate("+(-i*6)+")"},leftPad(i,2,"0")));
     }
     clock.appendChild(toSvg("circle",{"class":"cadran","cx":cx,"cy":cy,"r":radius}));
     document.getElementById("heures").setAttributeNS(null,"transform","translate("+cx+" "+cy+") rotate(-90)");

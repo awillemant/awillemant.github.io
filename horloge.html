@@ -175,7 +175,7 @@
 
 
 
-    document.getElementById("grad").addEventListener("change",function(evt){
+    document.getElementById("grad").addEventListener("input",function(evt){
         var value = evt.srcElement.value;
         document.querySelectorAll("line.m").forEach(e=>e.style.visibility="visible");
         document.querySelectorAll("line.h").forEach(e=>e.style.visibility="visible");
@@ -194,7 +194,7 @@
         }
     });
 
-    document.getElementById("digits").addEventListener("change",function(evt){
+    document.getElementById("digits").addEventListener("input",function(evt){
         var value = evt.srcElement.value;
         document.querySelectorAll("text.m").forEach(e=>e.style.visibility="visible");
         document.querySelectorAll("text.h").forEach(e=>e.style.visibility="visible");

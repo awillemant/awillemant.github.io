@@ -94,13 +94,31 @@
             margin-right:20px;
             width:80px;
         }
+        .enabler{
+            text-align: center;
+        }
+        .enabler button {
+            border:solid 1px black;
+            font-size:70%;
+        }
         
     </style>
 </head>
 
 <body>
     <h1>Horloge</h1>
-   
+<div class="enabler">
+    <button class="m">Minutes</button>
+    <button class="h">Heures</button>
+    <button class="hh">Heures 3.6.9.12</button>
+    <button class="gradm">grad. M</button>
+    <button class="gradh">grad. H</button>
+    <button class="gradhh">grad. 3.6.9.12</button>
+    <button class="cadran">cadran</button>
+</div>
+<div>
+    <p> Graduation : <input type="range" id="vol" name="vol" min="0" max="3" step="1" /></p>
+</div>
 <svg height="500" width="600" onload="makeRotatable(evt)" >
     <g id="clock"></g>
     <g id="minutes" class="rotatable" fill="gray" >
@@ -145,7 +163,7 @@
             }
             cl+=" h";
             l=longTickSize;
-            clock.appendChild(toSvg("text",{"class":"h digit","x1":0,"y1":0,"font-size":30,"text-anchor":"middle","alignment-baseline":"middle","transform":"translate("+cx+" "+cy+") rotate("+i*6+") translate(0 -"+hourDigitDistance+") rotate("+(-i*6)+")"},i/5==0?"12":i/5));
+            clock.appendChild(toSvg("text",{"class":(i%15==0)?"h digit mark":"h digit","x1":0,"y1":0,"font-size":30,"text-anchor":"middle","alignment-baseline":"middle","transform":"translate("+cx+" "+cy+") rotate("+i*6+") translate(0 -"+hourDigitDistance+") rotate("+(-i*6)+")"},i/5==0?"12":i/5));
         }else{
             cl+=" m";
         }
@@ -157,6 +175,19 @@
     document.getElementById("minutes").setAttributeNS(null,"transform","translate("+cx+" "+cy+") rotate(-90)");
     document.getElementById("secondes").setAttributeNS(null,"transform","translate("+cx+" "+cy+") rotate(-90)");
 
+    function configureButton(button,element){
+        document.querySelectorAll(button)[0].addEventListener('mouseup', function(){
+        var current = document.querySelectorAll(element)[0].style.visibility;
+        document.querySelectorAll(element).forEach(e=>e.style.visibility=(current=="hidden"?"visible":"hidden"))
+       });
+    }
+    configureButton(".enabler button.cadran","circle.cadran");
+    configureButton(".enabler button.m","text.m");
+    configureButton(".enabler button.h","text.h:not(.mark)");
+    configureButton(".enabler button.hh","text.h.mark");
+    configureButton(".enabler button.gradm","line.m");
+    configureButton(".enabler button.gradh","line.h:not(.mark)");
+    configureButton(".enabler button.gradhh","line.h.mark");
 
 
     function toSvg(tagName,attrs,body){
@@ -181,7 +212,7 @@
    
     function now(){
         var now=new Date();
-        var heures = now.getHours()%12;
+        var heures = now.getHours()%24;
         var minutes = now.getMinutes();
         var secondes = now.getSeconds();
         document.getElementById("h").innerText = leftPad(String(heures),2,"0");
@@ -213,7 +244,7 @@
     document.getElementById("ampm").addEventListener('mouseup', function(){
         var currentHour = Number(document.getElementById("h").innerHTML);
         isAm=!isAm;
-        document.getElementById("h").innerHTML=String(leftPad((currentHour+12)%24,2,"0"));
+        document.getElementById("h").innerHTML=String(leftPad((currentHour+12)%(isAm?12:24),2,"0"));
         document.getElementById("ampm").innerHTML=isAm?"matin":"après-midi";
     });
 

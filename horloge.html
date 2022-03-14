@@ -123,6 +123,15 @@
         #digital #s{
             color:blue;
         }
+
+        #digital p.formelle,#digital p.informelle {
+            font-family: Verdana, Geneva, Tahoma, sans-serif;
+            font-size: medium;
+        }
+        #digital p.informelle {
+            font-style: italic;
+            color:rgb(100, 100, 100);
+        }
         svg{
             border:1px solid black;
             display: block;     
@@ -193,10 +202,13 @@
     <svg height="700" width="700" onload="makeRotatable(evt)" >
         <g id="guides">
             <circle id="secteur" cx="350" cy="350" r="140" />
-            <text id="etquart" x="380" y="220" font-size="30">"et quart"</text>
-            <text id="etdemi" x="400" y="350" font-size="30">"et demi"</text>
-            <text id="moinslequart1" x="170" y="200" font-size="30" width="100">"moins </text>
-            <text id="moinslequart2" x="170" y="250" font-size="30" width="100">le quart"</text>
+            <text id="etquart" x="380" y="220" font-size="30">et quart</text>
+            <text id="etdemi" x="400" y="350" font-size="30">et demi</text>
+            <text id="moinslequart1" x="170" y="200" font-size="30" width="100">moins</text>
+            <text id="moinslequart2" x="170" y="250" font-size="30" width="100">le quart</text>
+            <text id="moinsdix" x="160" y="200" font-size="30" width="100">moins dix</text>
+            <text id="moinscinq" x="160" y="200" font-size="30" width="100">moins cinq</text>
+            <text id="moinsvingt" x="125" y="285" font-size="30" width="100">moins vingt</text>
             <line class="g0" x1="0" y1="0" x2="280" y2="0" transform="translate(350 350) rotate(-90)" />
             <line class="g1" x1="0" y1="0" x2="280" y2="0" transform="translate(350 350) rotate(-60)" />
             <line class="g2" x1="0" y1="0" x2="280" y2="0" transform="translate(350 350) rotate(-30)" />
@@ -229,6 +241,9 @@
     </svg>
     <div id="digital">
         <p><span id="h">00</span>:<span id="m">00</span><span class="live">:<span id="s">00</span></span></p>
+        <p class="formelle"></p>
+        <p class="informelle"></p>
+       
         <button id="ampm">Matin</button>
     </div>
 </div>
@@ -238,6 +253,25 @@
 </div>
 
 <script>
+
+function updateGuides(angleMinutes,heures,minutes){
+    document.getElementById("secteur").style.strokeDasharray= 0.5*perimeter*(90+angleMinutes)/360+" "+perimeter;
+    document.querySelectorAll("#guides line").forEach(e=>{
+        if(heures%12>=Number(e.className.baseVal.substring(1))){
+           e.style.display="block";
+        }else{
+           e.style.display="none";
+        }
+    });
+    document.getElementById("etquart").style.display=(minutes>=14 && minutes <16)?"block":"none";
+    document.getElementById("etdemi").style.display=(minutes>=29 && minutes <31)?"block":"none"
+    document.getElementById("moinsvingt").style.display=(minutes>=39 && minutes <41)?"block":"none";
+    document.getElementById("moinslequart1").style.display=(minutes>=44 && minutes <46)?"block":"none";
+    document.getElementById("moinslequart2").style.display=(minutes>=44 && minutes <46)?"block":"none";
+    document.getElementById("moinsdix").style.display=(minutes>=49 && minutes <51)?"block":"none";
+    document.getElementById("moinscinq").style.display=(minutes>=54 && minutes <56)?"block":"none";
+}
+
 function displayNow(){
     var now=new Date();
     var heures = now.getHours()%24;
@@ -250,18 +284,51 @@ function displayNow(){
     document.getElementById("heures").transform.baseVal.getItem(1).setRotate((heures*30+(minutes*30/60))-90,0,0);
     document.getElementById("minutes").transform.baseVal.getItem(1).setRotate(angleMinutes,0,0);
     document.getElementById("secondes").transform.baseVal.getItem(1).setRotate(secondes*6-90,0,0);
-    document.getElementById("secteur").style.strokeDasharray= 0.5*perimeter*(90+angleMinutes)/360+" "+perimeter;
-    document.querySelectorAll("#guides line").forEach(e=>{
-        if(heures%12>=Number(e.className.baseVal.substring(1))){
-           e.style.display="block";
-        }else{
-           e.style.display="none";
-        }
-    });
-    document.getElementById("etquart").style.display=(minutes>13 && minutes <17)?"block":"none";
-    document.getElementById("etdemi").style.display=(minutes>28 && minutes <32)?"block":"none";
-    document.getElementById("moinslequart1").style.display=(minutes>43 && minutes <47)?"block":"none";
-    document.getElementById("moinslequart2").style.display=(minutes>43 && minutes <47)?"block":"none";
+    updateGuides(angleMinutes,heures,minutes);
+    writeTime(heures,minutes);
+}
+
+function writeTime(heures,minutes){
+    var wMin=[];
+    wMin.push("","une","deux","trois","quatre","cinq","six","sept","huit","neuf");
+    wMin.push("dix","onze","douze","treize","quatorze","quinze","seize","dix-sept","dix-huit","dix-neuf");
+    wMin.push("vingt","vingt et une","vingt-deux","vingt-trois","vingt-quatre","vingt-cinq","vingt-six","vingt-sept","vingt-huit","vingt-neuf");
+    wMin.push("trente","trente et une","trente-deux","trente-trois","trente-quatre","trente-cinq","trente-six","trente-sept","trente-huit","trente-neuf");
+    wMin.push("quarante","quarante et une","quarante-deux","quarante-trois","quarante-quatre","quarante-cinq","quarante-six","quarante-sept","quarante-huit","quarante-neuf");
+    wMin.push("cinquante", "cinquante et un","cinquante-deux","cinquante-trois","cinquante-quatre","cinquante-cinq","cinquante-six","cinquante-sept","cinquante-huit","cinquante-neuf");
+    var wHeu=[];
+    wHeu.push("minuit","une","deux","trois","quatre","cinq","six","sept","huit","neuf");
+    wHeu.push("dix","onze","midi","treize","quatorze","quinze","seize","dix-sept","dix-huit","dix-neuf");
+    wHeu.push("vingt","vingt et une","vingt-deux","vingt-trois","minuit");
+    var minutesExcp=[39,40,44,45,49,50,54,55];
+    var results =["",""];
+    results[0]+=wHeu[heures]+((heures!=0 && heures!=12)?" heure"+(heures>1?"s":""):"");
+    var heuresInformelles = heures;
+    if(minutesExcp.includes(minutes)){
+        heuresInformelles++;
+    }
+    if(heuresInformelles>12 && heuresInformelles<24){
+        heuresInformelles-=12;
+    }
+    results[1]+=wHeu[heuresInformelles]+((heuresInformelles!=0 && heuresInformelles!=12 && heuresInformelles!=24)?" heure"+(heuresInformelles>1?"s":""):"");
+    results[0]+=" "+wMin[minutes];
+    if(minutes>=14 && minutes <16){
+        results[1]+=" et quart";
+    }else if(minutes>=29 && minutes <31){
+        results[1]+=" et demi";
+    }else if(minutes>=39 && minutes <41){
+        results[1]+=" moins vingt";
+    }else if(minutes>=44 && minutes <46){
+        results[1]+=" moins le quart";
+    }else if(minutes>=49 && minutes <51){
+        results[1]+=" moins dix";
+    }else if(minutes>=54 && minutes <56){
+        results[1]+=" moins cinq";
+    }else{
+        results[1]+=" "+wMin[minutes]; 
+    }
+    document.querySelectorAll(".formelle")[0].innerHTML=results[0];
+    document.querySelectorAll(".informelle")[0].innerHTML='"'+results[1]+'"';
 }
 
 function makeRotatable(evt) {
@@ -344,53 +411,31 @@ function makeRotatable(evt) {
     function updateHeures(angle){
         var aiguille = document.getElementById("heures");
         aiguille.transform.baseVal.getItem(1).setRotate((angle/12)-90,0,0);
-        document.getElementById("secteur").style.strokeDasharray= 0.5*perimeter*((angle)%360)/360+" "+perimeter;
         var heures = Math.floor(angle / 360);
         var minutes = Math.floor((angle % 360) / 6);
         document.getElementById("h").innerText = leftPad(String(heures+(!isAm?12:0)),2,"0");
         document.getElementById("m").innerText = leftPad(String(minutes), 2, "0");
-        document.querySelectorAll("#guides line").forEach(e=>{
-            if(heures%12>=Number(e.className.baseVal.substring(1))){
-               e.style.display="block";
-            }else{
-               e.style.display="none";
-            }
-        });
-        document.getElementById("etquart").style.display=(minutes>13 && minutes <17)?"block":"none";
-        document.getElementById("etdemi").style.display=(minutes>28 && minutes <32)?"block":"none";
-        document.getElementById("moinslequart1").style.display=(minutes>43 && minutes <47)?"block":"none";
-        document.getElementById("moinslequart2").style.display=(minutes>43 && minutes <47)?"block":"none";
+        updateGuides((angle%360)-90,heures,minutes);
+        writeTime(heures+(!isAm?12:0),minutes);
     }
 
     function updateMinutes(angle) {
         var aiguille = document.getElementById("minutes");
         var angleMinutes = (angle * 12) - 90;
         aiguille.transform.baseVal.getItem(1).setRotate(angleMinutes, 0, 0);
-        document.getElementById("secteur").style.strokeDasharray= 0.5*perimeter*((90+angleMinutes)%360)/360+" "+perimeter;
         var heures = Math.floor(angle*12 / 360);
         var minutes = Math.floor((angle*12 % 360) / 6);
         document.getElementById("h").innerText = leftPad(String(heures+(!isAm?12:0)),2,"0");
         document.getElementById("m").innerText = leftPad(String(minutes), 2, "0");
-        document.querySelectorAll("#guides line").forEach(e=>{
-            if(heures%12>=Number(e.className.baseVal.substring(1))){
-               e.style.display="block";
-            }else{
-               e.style.display="none";
-            }
-        });
-        document.getElementById("etquart").style.display=(minutes>13 && minutes <17)?"block":"none";
-        document.getElementById("etdemi").style.display=(minutes>28 && minutes <32)?"block":"none";
-        document.getElementById("moinslequart1").style.display=(minutes>43 && minutes <47)?"block":"none";
-        document.getElementById("moinslequart2").style.display=(minutes>43 && minutes <47)?"block":"none";
+        updateGuides((90+angleMinutes)%360-90,heures,minutes);
+        writeTime(heures+(!isAm?12:0),minutes);
     }
    
-
     
     function endRotate(evt) {
         selectedElement = null;
     }
 
-    
 }
 
 function toSvg(tagName,attrs,body){
@@ -540,9 +585,11 @@ document.getElementById("ampm").style.display="none";
 (function configureAmPmButton(){
     document.getElementById("ampm").addEventListener('mouseup', function(){
         var currentHour = Number(document.getElementById("h").innerHTML);
+        var currentMin = Number(document.getElementById("m").innerHTML);
         isAm=!isAm;
         document.getElementById("h").innerHTML=String(leftPad((currentHour+12)%(isAm?12:24),2,"0"));
         document.getElementById("ampm").innerHTML=isAm?"matin":"après-midi";
+        writeTime((currentHour+12)%(isAm?12:24),currentMin);
     });
 })();
 </script>

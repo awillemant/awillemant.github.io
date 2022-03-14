@@ -59,6 +59,7 @@
         
         #config p button{
             cursor:pointer;
+            color:black;
             background-color: red;
             border:solid 1px black;
             vertical-align: middle;
@@ -154,6 +155,23 @@
             cursor: pointer;
             vertical-align: middle;
         }
+        #secteur{
+            stroke:rgba(128,128,128,.2);
+            stroke-width:280;
+            fill:none;
+            transform: rotate(-90deg) ;
+            transform-origin: center;
+        }
+
+        #guides text{
+           fill:black;
+           font-weight: bold;
+        }
+
+        #guides line{
+           stroke:red;
+           stroke-width:1;
+        }
         
     </style>
 </head>
@@ -168,24 +186,45 @@
     <p>
         <button id="live">mode Live : on</button>
         <button id="showDigital">digital</button>
+        <button id="showGuides">guides</button>
     </p>
 </div>
 <div id="playground">
     <svg height="700" width="700" onload="makeRotatable(evt)" >
+        <g id="guides">
+            <circle id="secteur" cx="350" cy="350" r="140" />
+            <text id="etquart" x="380" y="220" font-size="30">"et quart"</text>
+            <text id="etdemi" x="400" y="350" font-size="30">"et demi"</text>
+            <text id="moinslequart1" x="170" y="200" font-size="30" width="100">"moins </text>
+            <text id="moinslequart2" x="170" y="250" font-size="30" width="100">le quart"</text>
+            <line class="g0" x1="0" y1="0" x2="280" y2="0" transform="translate(350 350) rotate(-90)" />
+            <line class="g1" x1="0" y1="0" x2="280" y2="0" transform="translate(350 350) rotate(-60)" />
+            <line class="g2" x1="0" y1="0" x2="280" y2="0" transform="translate(350 350) rotate(-30)" />
+            <line class="g3" x1="0" y1="0" x2="280" y2="0" transform="translate(350 350) rotate(0)" />
+            <line class="g4" x1="0" y1="0" x2="280" y2="0" transform="translate(350 350) rotate(30)" />
+            <line class="g5" x1="0" y1="0" x2="280" y2="0" transform="translate(350 350) rotate(60)" />
+            <line class="g6" x1="0" y1="0" x2="280" y2="0" transform="translate(350 350) rotate(90)" />
+            <line class="g7" x1="0" y1="0" x2="280" y2="0" transform="translate(350 350) rotate(120)" />
+            <line class="g8" x1="0" y1="0" x2="280" y2="0" transform="translate(350 350) rotate(150)" />
+            <line class="g9" x1="0" y1="0" x2="280" y2="0" transform="translate(350 350) rotate(180)" />
+            <line class="g10" x1="0" y1="0" x2="280" y2="0" transform="translate(350 350) rotate(210)" />
+            <line class="g11" x1="0" y1="0" x2="280" y2="0" transform="translate(350 350) rotate(240)" />
+        </g>
+        
         <g id="clock"></g>
         <g id="minutes" class="rotatable" fill="gray" >
             <circle cx="0" cy="0" r="30" />
-            <polygon points="0 -30, 0 30, 250 0" />
+            <polygon points="0 -30, 0 30, 270 0" />
             <circle cx="0" cy="0" r="10" fill="white" />
         </g>
         <g id="heures" class="rotatable" fill="red" >
             <circle cx="0" cy="0" r="25" />
-            <polygon points="0 -25, 0 25, 150 0" />
+            <polygon points="0 -25, 0 25, 200 0" />
             <circle cx="0" cy="0" r="10" fill="white" />
         </g>
         <g id="secondes" class="rotatable live" fill="blue" >
             <circle cx="0" cy="0" r="2" />
-            <polygon points="0 -2, 0 2, 260 0" />
+            <polygon points="0 -2, 0 2, 280 0" />
         </g>
     </svg>
     <div id="digital">
@@ -207,9 +246,22 @@ function displayNow(){
     document.getElementById("h").innerText = leftPad(String(heures),2,"0");
     document.getElementById("m").innerText = leftPad(String(minutes), 2, "0");
     document.getElementById("s").innerText = leftPad(String(secondes), 2, "0");
+    var angleMinutes = (minutes*6+(6*secondes/60))-90;
     document.getElementById("heures").transform.baseVal.getItem(1).setRotate((heures*30+(minutes*30/60))-90,0,0);
-    document.getElementById("minutes").transform.baseVal.getItem(1).setRotate((minutes*6+(6*secondes/60))-90,0,0);
+    document.getElementById("minutes").transform.baseVal.getItem(1).setRotate(angleMinutes,0,0);
     document.getElementById("secondes").transform.baseVal.getItem(1).setRotate(secondes*6-90,0,0);
+    document.getElementById("secteur").style.strokeDasharray= 0.5*perimeter*(90+angleMinutes)/360+" "+perimeter;
+    document.querySelectorAll("#guides line").forEach(e=>{
+        if(heures%12>=Number(e.className.baseVal.substring(1))){
+           e.style.display="block";
+        }else{
+           e.style.display="none";
+        }
+    });
+    document.getElementById("etquart").style.display=(minutes>13 && minutes <17)?"block":"none";
+    document.getElementById("etdemi").style.display=(minutes>28 && minutes <32)?"block":"none";
+    document.getElementById("moinslequart1").style.display=(minutes>43 && minutes <47)?"block":"none";
+    document.getElementById("moinslequart2").style.display=(minutes>43 && minutes <47)?"block":"none";
 }
 
 function makeRotatable(evt) {
@@ -280,6 +332,7 @@ function makeRotatable(evt) {
             selectedElement.transform.baseVal.getItem(1).setRotate(angleAiguille+delta-90, 0, 0);
             if(selectedElement.id=="minutes"){
                 updateHeures(angleAiguille + delta);
+                
             }
             if (selectedElement.id == "heures") {
                 updateMinutes(angleAiguille + delta);
@@ -291,25 +344,46 @@ function makeRotatable(evt) {
     function updateHeures(angle){
         var aiguille = document.getElementById("heures");
         aiguille.transform.baseVal.getItem(1).setRotate((angle/12)-90,0,0);
+        document.getElementById("secteur").style.strokeDasharray= 0.5*perimeter*((angle)%360)/360+" "+perimeter;
         var heures = Math.floor(angle / 360);
         var minutes = Math.floor((angle % 360) / 6);
         document.getElementById("h").innerText = leftPad(String(heures+(!isAm?12:0)),2,"0");
         document.getElementById("m").innerText = leftPad(String(minutes), 2, "0");
+        document.querySelectorAll("#guides line").forEach(e=>{
+            if(heures%12>=Number(e.className.baseVal.substring(1))){
+               e.style.display="block";
+            }else{
+               e.style.display="none";
+            }
+        });
+        document.getElementById("etquart").style.display=(minutes>13 && minutes <17)?"block":"none";
+        document.getElementById("etdemi").style.display=(minutes>28 && minutes <32)?"block":"none";
+        document.getElementById("moinslequart1").style.display=(minutes>43 && minutes <47)?"block":"none";
+        document.getElementById("moinslequart2").style.display=(minutes>43 && minutes <47)?"block":"none";
     }
 
     function updateMinutes(angle) {
         var aiguille = document.getElementById("minutes");
-        aiguille.transform.baseVal.getItem(1).setRotate((angle * 12) - 90, 0, 0);
+        var angleMinutes = (angle * 12) - 90;
+        aiguille.transform.baseVal.getItem(1).setRotate(angleMinutes, 0, 0);
+        document.getElementById("secteur").style.strokeDasharray= 0.5*perimeter*((90+angleMinutes)%360)/360+" "+perimeter;
         var heures = Math.floor(angle*12 / 360);
         var minutes = Math.floor((angle*12 % 360) / 6);
         document.getElementById("h").innerText = leftPad(String(heures+(!isAm?12:0)),2,"0");
         document.getElementById("m").innerText = leftPad(String(minutes), 2, "0");
+        document.querySelectorAll("#guides line").forEach(e=>{
+            if(heures%12>=Number(e.className.baseVal.substring(1))){
+               e.style.display="block";
+            }else{
+               e.style.display="none";
+            }
+        });
+        document.getElementById("etquart").style.display=(minutes>13 && minutes <17)?"block":"none";
+        document.getElementById("etdemi").style.display=(minutes>28 && minutes <32)?"block":"none";
+        document.getElementById("moinslequart1").style.display=(minutes>43 && minutes <47)?"block":"none";
+        document.getElementById("moinslequart2").style.display=(minutes>43 && minutes <47)?"block":"none";
     }
-    function updateSecondes(angle) {
-        var aiguille = document.getElementById("secondes");
-        aiguille.transform.baseVal.getItem(1).setRotate(angle-90, 0, 0);
-        
-    }
+   
 
     
     function endRotate(evt) {
@@ -343,6 +417,7 @@ var live=true;
 var cx=350;
 var cy=350;
 var radius=280;
+var perimeter = radius*2*Math.PI;
 var shortTickSize=5;
 var longTickSize=15;
 var hourDigitDistance=320;
@@ -445,6 +520,19 @@ document.getElementById("ampm").style.display="none";
         }else{
             document.getElementById("showDigital").style.backgroundColor="white";
             document.getElementById("digital").style.visibility="hidden";
+        }
+    });
+})();
+
+(function configureGuidesButton(){
+    document.getElementById("showGuides").addEventListener('mouseup', function(){
+        var current= document.getElementById("guides").style.visibility;
+        if(current === "hidden"){
+            document.getElementById("showGuides").style.backgroundColor="red";
+            document.getElementById("guides").style.visibility="visible";
+        }else{
+            document.getElementById("showGuides").style.backgroundColor="white";
+            document.getElementById("guides").style.visibility="hidden";
         }
     });
 })();

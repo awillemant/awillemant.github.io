@@ -33,11 +33,12 @@
 <div id="playground">
     <svg height="700" width="700" viewBox="-350 -350 700 700" >
         <g id="roue" > 
-            <circle id="mask" fill="red" fill-opacity="0%" cx="0" cy="0" r="10"></circle></g>  
+            <!--circle id="mask" fill="red" fill-opacity="0%" cx="0" cy="0" r="10"></circle-->
+        </g>  
     </svg>
     
 </div>
-<script src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
+<script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
 <script src="js/propeller.js"></script>
 <script>
 
@@ -81,9 +82,9 @@ var coord2={"x":imagePosition*Math.cos(angleUnite),"y":imagePosition*Math.sin(an
 var imageHeight=imageRatio*Math.sqrt((coord2.x-coord1.x)*(coord2.x-coord1.x) + (coord2.y-coord1.y)*(coord2.y-coord1.y));
 
 var disc = toSvg("circle",{"id":"disc","cx":roueX,"cy":roueY,"r":imagePosition+discPadding+imageHeight});
-document.getElementById("mask").setAttribute("r",imagePosition+discPadding+imageHeight);
-document.getElementById("mask").setAttribute("cx",roueX);
-document.getElementById("mask").setAttribute("cy",roueY);
+//document.getElementById("mask").setAttribute("r",imagePosition+discPadding+imageHeight);
+//document.getElementById("mask").setAttribute("cx",roueX);
+//document.getElementById("mask").setAttribute("cy",roueY);
 
 
 

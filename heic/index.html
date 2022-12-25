@@ -166,6 +166,14 @@
       <span class="fs-4">Réceptacle</span>
     </div>
     <hr>
+    <div class="btn-group btn-group-sm" role="group">
+      <input type="radio" class="btn-check" name="btnradio" id="radio_jpeg" autocomplete="off" checked>
+      <label class="btn btn-outline-dark" for="radio_jpeg">jpeg</label>
+
+     <input type="radio" class="btn-check" name="btnradio" id="radio_png" autocomplete="off">
+     <label class="btn btn-outline-dark" for="radio_png">png</label>
+   </div>
+    <hr>
     <div id="receptacle"  ondragenter="stopEventPropagation(event);doEnter(event)" ondragover=" stopEventPropagation(event);doOver(event)" ondrop=" stopEventPropagation(event);doDrop(event)">Déposer ici</div>
     <div id="alerts"></div>
   </div>
@@ -243,16 +251,25 @@ function downloadAll(){
     document.querySelectorAll("a[download]").forEach((link)=>link.click());
 }
 
+function getFormat(){
+    var format="jpeg";
+    if(document.getElementById("radio_png").checked){
+      format="png"
+    }
+    return format;
+}
+
 function convertFile(file) {
+    
     return fileToBlob(file)
         .then((blob)=>heic2any({
             blob,
-            toType:"image/png",
+            toType:"image/"+getFormat()
         }))
         
 }
 function createCard(imageUrl,size,file){
-    var filename = file.name.substr(0,file.name.lastIndexOf("."))+".png"
+    var filename = file.name.substr(0,file.name.lastIndexOf("."))+"."+getFormat();
     var card=crelt("div",["card"]);
     var img=crelt("img",["card-img-top"]);
     img.setAttribute("src",imageUrl)

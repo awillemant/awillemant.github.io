@@ -201,12 +201,12 @@ document.querySelectorAll(".keyboard button.erase").forEach(function(button){
 
 let timeLeft = 12;
 
-window.setInterval(function(){
+/*window.setInterval(function(){
     if(timeLeft>0){
         timeLeft--;
     };
     printTime(timeLeft);
-},1000);
+},1000);*/
 
 function printTime(timeInSeconds){
     let minutes = Math.floor(timeInSeconds/60);

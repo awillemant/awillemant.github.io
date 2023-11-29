@@ -189,20 +189,18 @@ let resultBox = document.querySelectorAll(".result")[0];
 let timerBox = document.querySelectorAll(".timer")[0];
 
 document.querySelectorAll(".keyboard button.digit").forEach(function(button){
-    button.addEventListener("touchStart",function(evt){
-        evt.preventDefault();
+    button.addEventListener("touchstart",function(evt){    
         if( resultBox.textContent.length<3){
             resultBox.textContent+= button.textContent;
         }
-    });
+    },{ passive: true});
 })
 
 document.querySelectorAll(".keyboard button.erase").forEach(function(button){
-    button.addEventListener("touchStart",function(evt){
-        evt.preventDefault();
+    button.addEventListener("touchstart",function(evt){
         let content = resultBox.textContent;
         resultBox.textContent = content.substring(0,content.length-1);
-    });
+    },{ passive: true});
 })
 
 let timeLeft = 12;

@@ -184,18 +184,22 @@
 
 
 <script>
+
+let resultBox = document.querySelectorAll(".result")[0];
+let timerBox = document.querySelectorAll(".timer")[0];
+
 document.querySelectorAll(".keyboard button.digit").forEach(function(button){
     button.addEventListener("click",function(){
-        if( document.querySelectorAll(".result")[0].textContent.length<3){
-            document.querySelectorAll(".result")[0].textContent+= button.textContent;
+        if( resultBox.textContent.length<3){
+            resultBox.textContent+= button.textContent;
         }
     });
 })
 
 document.querySelectorAll(".keyboard button.erase").forEach(function(button){
     button.addEventListener("click",function(){
-        let content = document.querySelectorAll(".result")[0].textContent;
-        document.querySelectorAll(".result")[0].textContent = content.substring(0,content.length-1);
+        let content = resultBox.textContent;
+        resultBox.textContent = content.substring(0,content.length-1);
     });
 })
 
@@ -211,7 +215,7 @@ let timeLeft = 12;
 function printTime(timeInSeconds){
     let minutes = Math.floor(timeInSeconds/60);
     let seconds = timeInSeconds%60;
-    document.querySelectorAll(".timer")[0].innerText=leftPad(minutes,2,"0")+":"+leftPad(seconds,2,"0");
+    timerBox.innerText=leftPad(minutes,2,"0")+":"+leftPad(seconds,2,"0");
 }
 
 function leftPad(text,length,padding){

@@ -189,7 +189,7 @@ let resultBox = document.querySelectorAll(".result")[0];
 let timerBox = document.querySelectorAll(".timer")[0];
 
 document.querySelectorAll(".keyboard button.digit").forEach(function(button){
-    button.addEventListener("click",function(){
+    button.addEventListener("touchEnd",function(){
         if( resultBox.textContent.length<3){
             resultBox.textContent+= button.textContent;
         }
@@ -197,7 +197,7 @@ document.querySelectorAll(".keyboard button.digit").forEach(function(button){
 })
 
 document.querySelectorAll(".keyboard button.erase").forEach(function(button){
-    button.addEventListener("click",function(){
+    button.addEventListener("touchEnd",function(){
         let content = resultBox.textContent;
         resultBox.textContent = content.substring(0,content.length-1);
     });
